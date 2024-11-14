@@ -151,7 +151,6 @@ function eew_table(data) {
     index.textContent = i + 1;
     const link = document.createElement("a");
     link.href = `https://${URL_MAIN}/file/trem_info.html?id=${trem.ID}&key=${params.key}`;
-    link.target = "_blank";
     link.textContent = formatTime(Number(trem.ID))
       .replaceAll("/", "")
       .replaceAll(":", "")

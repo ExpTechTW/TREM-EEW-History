@@ -1,75 +1,98 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+  <head>
+    <title id="title">強震監視器</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta content="TREM 即時強震觀測網" property="og:title" />
+    <meta
+      content="Taiwan Real-time Earthquake Monitoring ( 臺灣即時地震監測 )"
+      property="og:description"
+    />
+    <meta content="https://exptechtw.github.io/" property="og:url" />
+    <meta
+      content="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/image/Icon/ExpTech.png"
+      property="og:image"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/trem.css" />
+    <script src="./js/config.js"></script>
+  </head>
 
-<head>
-  <title id="title">強震監視器</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta content="TREM 即時強震觀測網" property="og:title" />
-  <meta content="Taiwan Real-time Earthquake Monitoring ( 臺灣即時地震監測 )" property="og:description" />
-  <meta content="https://exptechtw.github.io/" property="og:url" />
-  <meta content="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/image/Icon/ExpTech.png" property="og:image" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="./css/trem.css" />
-  <script src="./js/config.js"></script>
-</head>
-
-<body class="dark">
-  <div class="app-container">
-    <div class="title">TREM 強震監視器</div>
-    <div class="sub-title">
-      僅供參考 最終結果依 <b>中央氣象署(CWA)</b> 為準
-    </div>
-    <canvas id="canvas" style="display: none"></canvas>
-    <div class="container">
-      <div class="map-wrapper">
-        <div class="map-container">
-          <img src="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/resource/taiwan.png" class="map-image" />
-          <img src="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/resource/rts.png" id="img" class="map-image" />
-          <img src="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/resource/int.png" class="map-image" />
-        </div>
+  <body class="dark">
+    <div class="app-container">
+      <div class="title">TREM 強震監視器</div>
+      <div class="sub-title">
+        僅供參考 最終結果依 <b>中央氣象署(CWA)</b> 為準
       </div>
-      <div class="control-container">
-        <div id="eew-info">
-          <div class="eew-info-title">
-            <div class="text-box">
-              <div class="text-body" id="eew-time">0000-00-00 00:00:00</div>
-              <div class="text-title">發震</div>
-            </div>
-            <div class="text-box">
-              <div class="text-title">第</div>
-              <div class="text-body" id="eew-number">0</div>
-              <div class="text-title">報</div>
-            </div>
-          </div>
-          <div class="eew-info-content">
-            <div class="info-row">
-              <div class="text-box">
-                <div class="text-title">震央</div>
-                <div class="text-body" id="eew-loc">一一一一一一</div>
-              </div>
-              <div class="text-box">
-                <div class="text-title">最大預估震度</div>
-                <div class="text-body" id="eew-max">0級</div>
-              </div>
-            </div>
-
-            <div class="info-row">
-              <div class="text-box">
-                <div class="text-title">規模</div>
-                <div class="text-body" id="eew-scale">0.0</div>
-              </div>
-              <div class="text-box">
-                <div class="text-title">深度</div>
-                <div class="text-body" id="eew-depth">0</div>
-              </div>
-            </div>
+      <canvas id="canvas" style="display: none"></canvas>
+      <div class="container">
+        <div class="map-wrapper">
+          <div class="map-container">
+            <img
+              src="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/resource/taiwan.png"
+              class="map-image"
+            />
+            <img
+              src="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/resource/rts.png"
+              id="img"
+              class="map-image"
+            />
+            <img
+              src="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/resource/int.png"
+              class="map-image"
+            />
           </div>
         </div>
-        <div class="control">
-          <a id="time" class="subtitle">---- / -- / -- -- : -- : --</a>
-          <div class="timeline-container">
-            <input id="timeline" type="range" min="0" max="86400" step="1" value="86400" />
+        <div class="control-container">
+          <div id="eew-info">
+            <div class="eew-info-title">
+              <div class="text-box">
+                <div class="text-body" id="eew-time">0000-00-00 00:00:00</div>
+                <div class="text-title">發震</div>
+              </div>
+              <div class="text-box">
+                <div class="text-title">第</div>
+                <div class="text-body" id="eew-number">0</div>
+                <div class="text-title">報</div>
+              </div>
+            </div>
+            <div class="eew-info-content">
+              <div class="info-row">
+                <div class="text-box">
+                  <div class="text-title">震央</div>
+                  <div class="text-body" id="eew-loc">一一一一一一</div>
+                </div>
+                <div class="text-box">
+                  <div class="text-title">最大預估震度</div>
+                  <div class="text-body" id="eew-max">0級</div>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <div class="text-box">
+                  <div class="text-title">規模</div>
+                  <div class="text-body" id="eew-scale">0.0</div>
+                </div>
+                <div class="text-box">
+                  <div class="text-title">深度</div>
+                  <div class="text-body" id="eew-depth">0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="control">
+            <a id="time" class="subtitle">---- / -- / -- -- : -- : --</a>
+            <div class="timeline-container">
+              <input
+                id="timeline"
+                type="range"
+                min="0"
+                max="86400"
+                step="1"
+                value="86400"
+              />
+            </div>
           </div>
           <div class="buttons">
             <button id="last" disabled="disabled">最新</button>
@@ -79,29 +102,38 @@
           <a class="more-info" id="link">更多資訊 >></a>
         </div>
       </div>
+      <audio id="audio_warn">
+        <source
+          src="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/resource/warn.mp3"
+          type="audio/mpeg"
+        />
+      </audio>
+      <audio id="audio_alert">
+        <source
+          src="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/resource/alert.mp3"
+          type="audio/mpeg"
+        />
+      </audio>
+      <button id="color-switch" onclick="switchColor()">切換背景色</button>
     </div>
-    <audio id="audio_warn">
-      <source src="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/resource/warn.mp3" type="audio/mpeg" />
-    </audio>
-    <audio id="audio_alert">
-      <source src="https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/resource/alert.mp3" type="audio/mpeg" />
-    </audio>
-    <button id="color-switch" onclick="switchColor()">切換背景色</button>
-  </div>
-  <script src="./js/trem.js" type="text/javascript"></script>
-  <script type="text/javascript">
-    function switchColor() {
-      const body = document.querySelector("body");
-      body.classList.toggle("light");
-      body.classList.toggle("dark");
-    }
-  </script>
-  <script>
-    document.getElementById("link").href = `https://${URL_MAIN}/file/trem_more.html`
-  </script>
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
-    integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
-    crossorigin="anonymous"></script>
-</body>
-
+    <script src="./js/trem.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      function switchColor() {
+        const body = document.querySelector("body");
+        body.classList.toggle("light");
+        body.classList.toggle("dark");
+      }
+    </script>
+    <script>
+      document.getElementById(
+        "link"
+      ).href = `https://${URL_MAIN}/file/trem_more.html`;
+    </script>
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

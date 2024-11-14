@@ -200,9 +200,9 @@ $(document).ready(function () {
     if (!lock) {
       $timeline.value = 86400 - (!time ? 0 : (Now().getTime() - time) / 1000);
       $time.textContent = `${time_string(!time ? Now().getTime() : time)} (${
-        $time.style.color == "yellow"
+        $time.style.color == "#fdfd77"
           ? "重播"
-          : $time.style.color == "red"
+          : $time.style.color == "#ff5757"
           ? "暫停"
           : "即時"
       })`;
