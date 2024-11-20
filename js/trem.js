@@ -1,3 +1,8 @@
+let nextImage = new Image();
+nextImage.crossOrigin = "anonymous";
+let currentImage = new Image();
+currentImage.crossOrigin = "anonymous";
+
 $(document).ready(function () {
   $("#eew-info").hide();
 
@@ -119,17 +124,27 @@ $(document).ready(function () {
   };
 
   $image.onerror = () => {
-    $image.src =
-      "https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/resource/rts.png";
+    currentImage.src = "https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/resource/rts.png";
+    $image.src = currentImage.src;
   };
 
   const updateImage = (t) => {
-    $image.src = t
+    const newSrc = t
       ? `https://${URL_MAIN}/api/v1/trem/rts-image/${t}`
-      : `https://${URL_MAIN.replace(
-          "api",
-          "lb"
-        )}/api/v1/trem/rts-image?t=${Date.now()}`;
+      : `https://${URL_MAIN.replace("api", "lb")}/api/v1/trem/rts-image?t=${Date.now()}`;
+      
+    nextImage.onload = () => {
+      const temp = currentImage;
+      currentImage = nextImage;
+      nextImage = temp;
+      $image.src = currentImage.src;
+    };
+    
+    nextImage.onerror = () => {
+      nextImage.src = "https://cdn.jsdelivr.net/gh/ExpTechTW/API@master/resource/rts.png";
+    };
+    
+    nextImage.src = newSrc;
   };
 
   const updateInfo = async (t) => {
